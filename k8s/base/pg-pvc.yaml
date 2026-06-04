@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: lab-kuber
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: pg_class
+  resources:
+    requests:
+      storage: 4Gi

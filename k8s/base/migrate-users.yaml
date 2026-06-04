@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate-users
+  namespace: lab-kuber
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate-users
+          image: ghcr.io/kukymbr/goose-docker:latest
+          env:
+            - name: GOOSE_DRIVER
+              value: postgres
+            - name: GOOSE_DBSTRING
+              valueFrom:
+                secretKeyRef:
+                  name: messager-db-secret
+                  key: USER_DB_DSN
+            - name: GOOSE_MIGRATION_DIR
+              value: /migrations
+          volumeMounts:
+            - name: migrations
+              mountPath: /migrations
+      volumes:
+        - name: migrations
+          configMap:
+            name: users-migrations-cm
