@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: lab-kuber
+commonLabels:
+  environment: dev
+
+resources:
+  - ../../base
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: messager.example.com
+    target:
+      kind: Ingress
+      name: ingress
+
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 2
+    target:
+      kind: Deployment
+      labelSelector: "app.kubernetes.io/part-of=lab-kuber"
+
+  - path: patches/prod-resources.yaml
