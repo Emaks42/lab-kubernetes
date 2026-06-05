@@ -25,3 +25,4 @@ patches:
       labelSelector: "app.kubernetes.io/part-of=lab-kuber"
 
   - path: patches/dev-resources.yaml
+  - path: patches/dev-images.yaml
