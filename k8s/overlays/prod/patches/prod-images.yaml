@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bff
+  namespace: lab-kuber
+spec:
+  template:
+    spec:
+      containers:
+        - name: bff
+          image: mablinov2704/bff@sha256:b3c4aa354ed1592be2aeef30ec526c8dd6842c30e6578ed5d441e5f9a25f82ad
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: lab-kuber
+spec:
+  template:
+    spec:
+      containers:
+        - name: user-service
+          image: mablinov2704/user-service@sha256:d4ab7bc410efabcaeb2581b33a0a8484434e2c0a8b99673b597fe168966e4c94
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-service
+  namespace: lab-kuber
+spec:
+  template:
+    spec:
+      containers:
+        - name: message-service
+          image: mablinov2704/message-service@sha256:bd0afef8fb344306f79880f682cc54078f84dbc08a08e45278409403bed6613b
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: lab-kuber
+spec:
+  template:
+    spec:
+      containers:
+        - name: frontend
+          image: mablinov2704/frontend@sha256:3e7b5052ee45495d656d46aedb41afd1e9aab5d544c02e0f2dfa175d3abeb133
