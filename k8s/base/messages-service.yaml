@@ -41,6 +41,22 @@ spec:
         - name: uploads
           persistentVolumeClaim:
             claimName: message-uploads-pvc
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: workload
+                operator: In
+                values:
+                  - app
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: disk
+                operator: In
+                values: ["fast"]
 ---
 apiVersion: v1
 kind: Service

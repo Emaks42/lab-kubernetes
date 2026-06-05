@@ -34,6 +34,15 @@ spec:
                 configMapKeyRef:
                   name: messager-config
                   key: MSG_SERVICE_URL
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: workload
+                operator: In
+                values:
+                  - app
 ---
 apiVersion: v1
 kind: Service

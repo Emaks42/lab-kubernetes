@@ -29,6 +29,15 @@ spec:
                 secretKeyRef:
                   name: messager-db-secret
                   key: USER_DB_DSN
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: workload
+                operator: In
+                values:
+                  - system
 ---
 apiVersion: v1
 kind: Service
