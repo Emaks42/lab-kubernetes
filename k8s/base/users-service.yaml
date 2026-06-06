@@ -13,6 +13,15 @@ spec:
       labels:
         app: user-service
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: workload
+                    operator: In
+                    values:
+                      - system
       containers:
         - name: user-service
           image: mablinov2704/user-service:latest
@@ -29,15 +38,6 @@ spec:
                 secretKeyRef:
                   name: messager-db-secret
                   key: USER_DB_DSN
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: workload
-                operator: In
-                values:
-                  - system
 ---
 apiVersion: v1
 kind: Service

@@ -13,6 +13,15 @@ spec:
       labels:
         app: minio
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: workload
+                    operator: In
+                    values:
+                      - system
       containers:
         - name: minio
           image: minio/minio:latest
@@ -31,15 +40,6 @@ spec:
                 secretKeyRef:
                   name: minio-secret
                   key: secretAccessKey
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: workload
-                operator: In
-                values:
-                  - system
 ---
 apiVersion: v1
 kind: Service

@@ -13,6 +13,15 @@ spec:
       labels:
         app: frontend
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: workload
+                    operator: In
+                    values:
+                      - app
       containers:
         - name: frontend
           image: mablinov2704/frontend:latest
@@ -29,15 +38,6 @@ spec:
                 configMapKeyRef:
                   name: messager-config
                   key: FRONTEND_BFF_INTERNAL_URL
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: workload
-                operator: In
-                values:
-                  - app
 ---
 apiVersion: v1
 kind: Service

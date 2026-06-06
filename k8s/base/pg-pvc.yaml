@@ -5,7 +5,7 @@ metadata:
   namespace: lab-kuber
 spec:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: pg_class
+  storageClassName: standard
   resources:
     requests:
       storage: 4Gi

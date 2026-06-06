@@ -13,6 +13,22 @@ spec:
       labels:
         app: message-service
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: workload
+                    operator: In
+                    values:
+                      - app
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: disk
+                    operator: In
+                    values: ["fast"]
       containers:
         - name: message-service
           image: mablinov2704/message-service:latest
@@ -41,22 +57,6 @@ spec:
         - name: uploads
           persistentVolumeClaim:
             claimName: message-uploads-pvc
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: workload
-                operator: In
-                values:
-                  - app
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          preference:
-            matchExpressions:
-              - key: disk
-                operator: In
-                values: ["fast"]
 ---
 apiVersion: v1
 kind: Service

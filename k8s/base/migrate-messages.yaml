@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: migrate-messages
-  namespace: <team-namespace>
+  namespace: lab-kuber
 spec:
   backoffLimit: 3
   template:
@@ -26,5 +26,4 @@ spec:
               mountPath: /migrations
       volumes:
         - name: migrations
-          configMap:
-            name: messages-migrations-cm
+          emptyDir: {}
