@@ -37,6 +37,7 @@ argocd/
 ├── application-dev.yaml           ← Argo CD app → k8s/overlays/dev
 └── application-prod.yaml          ← Argo CD app → k8s/overlays/prod
 docs/
+├── Отчёт по Kubernetes.docx       ← отчёт
 └── README.md                      ← этот файл
 ```
 
@@ -128,14 +129,14 @@ kubectl kustomize k8s/overlays/dev
 kubectl kustomize k8s/overlays/prod
 
 # Статус подов
-kubectl get pods -n messager
+kubectl get pods -n lab-kuber
 
 # nodeAffinity
-kubectl get pods -o wide -n messager
-kubectl describe pod <имя-пода-message-service> -n messager | grep -A 10 Affinity
+kubectl get pods -o wide -n lab-kuber
+kubectl describe pod <имя-пода-message-service> -n lab-kuber | grep -A 10 Affinity
 
 # Монтирование S3
-kubectl exec -n messager deployment/message-service -- df -h /app/uploads
+kubectl exec -n lab-kuber deployment/message-service -- df -h /app/uploads
 
 # Статус Argo CD
 kubectl get application -n argocd
